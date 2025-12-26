@@ -3,6 +3,7 @@ import { cn } from "../../lib/utils";
 import { ApplicationContext } from "../../components/context";
 import { toast } from "react-toastify";
 
+
 function BookmarkForm({ onClose, editData, editSaveBookmark, mode }) {
   const {
     setState,
@@ -142,7 +143,7 @@ function BookmarkForm({ onClose, editData, editSaveBookmark, mode }) {
 
   return (
     <div className="p-4">
-      <h2 className="text-sm font-medium text-neutral-800 mb-8">
+      <h2 className="text-sm font-medium text-neutral-800 mb-8 dark:text-neutral-dark-100">
         Save a link with details to keep your collection organized. We extract
         the favicon automatically from the URL.
       </h2>
@@ -150,7 +151,7 @@ function BookmarkForm({ onClose, editData, editSaveBookmark, mode }) {
         <div className="flex flex-col gap-1">
           <label
             htmlFor="title"
-            className="text-sm font-semibold text-neutral-900 "
+            className="text-sm font-semibold text-neutral-900 dark:text-white "
           >
             Title <sup>*</sup>
           </label>
@@ -160,8 +161,8 @@ function BookmarkForm({ onClose, editData, editSaveBookmark, mode }) {
             name="title"
             value={formData.title}
             className={cn(
-              "w-full p-3 rounded-lg border border-neutral-500 bg-white shadow-xs",
-              errors.title && "border border-red-800"
+              "w-full p-3 rounded-lg border border-neutral-500 bg-white shadow-xs dark:border-neutral-dark-300 dark:bg-neutral-dark-600 dark:text-white hover:bg-neutral-dark-500",
+              errors.title && "border border-red-800 "
             )}
             onChange={handleChange}
           />
@@ -172,7 +173,7 @@ function BookmarkForm({ onClose, editData, editSaveBookmark, mode }) {
         <div className="flex flex-col gap-1">
           <label
             htmlFor="description"
-            className="text-sm font-semibold text-neutral-900 shadow-xs"
+            className="text-sm font-semibold text-neutral-900 shadow-xs dark:text-white"
           >
             Description <sup>*</sup>
           </label>
@@ -182,14 +183,14 @@ function BookmarkForm({ onClose, editData, editSaveBookmark, mode }) {
             maxLength={MAX_LENGTH}
             value={formData.description}
             className={cn(
-              "w-full p-3 rounded-lg border border-neutral-500 bg-white shadow-xs",
-              errors.description && "border border-red-800"
+              "w-full p-3 rounded-lg border border-neutral-500 bg-white shadow-xs dark:border-neutral-dark-300 dark:bg-neutral-dark-600 dark:text-white",
+              errors.description  && "border border-red-800 "
             )}
             rows={3}
             onChange={handleChange}
           />
           <p className="text-xs font-medium text-neutral-900 flex justify-end">
-            {formData.description.length}/${MAX_LENGTH}
+            {formData.description.length}/{MAX_LENGTH}
           </p>
           {errors.description && (
             <p className="text-red-800 text-xs">{errors.description}</p>
@@ -199,7 +200,7 @@ function BookmarkForm({ onClose, editData, editSaveBookmark, mode }) {
         <div className="flex flex-col gap-1">
           <label
             htmlFor="url"
-            className="text-sm font-semibold text-neutral-900"
+            className="text-sm font-semibold text-neutral-900 dark:text-white"
           >
             Website URL <sup>*</sup>
           </label>
@@ -209,8 +210,8 @@ function BookmarkForm({ onClose, editData, editSaveBookmark, mode }) {
             name="url"
             value={formData.url}
             className={cn(
-              "w-full p-3 rounded-lg border border-neutral-500 bg-white shadow-xs",
-              errors.url && "border border-red-800"
+              "w-full p-3 rounded-lg border border-neutral-500 bg-white shadow-xs dark:border-neutral-dark-300 dark:bg-neutral-dark-600 dark:text-white",
+              errors.url && "border border-red-800 "
             )}
             onChange={handleChange}
           />
@@ -220,7 +221,7 @@ function BookmarkForm({ onClose, editData, editSaveBookmark, mode }) {
         <div className="flex flex-col gap-1">
           <label
             htmlFor="tags"
-            className="text-sm font-semibold text-neutral-900"
+            className="text-sm font-semibold text-neutral-900 dark:text-white"
           >
             Tags <sup>*</sup>
           </label>
@@ -230,8 +231,8 @@ function BookmarkForm({ onClose, editData, editSaveBookmark, mode }) {
             name="tags"
             value={formData.tags}
             className={cn(
-              "w-full p-3 rounded-lg border border-neutral-500 bg-white",
-              errors.tags && "border border-red-800"
+              "w-full p-3 rounded-lg border border-neutral-500 bg-white dark:border-neutral-dark-300 dark:bg-neutral-dark-600 dark:text-white",
+              errors.tags && "border border-red-800 "
             )}
             onChange={handleChange}
           />

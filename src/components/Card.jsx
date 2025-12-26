@@ -18,6 +18,21 @@ import iconMenuBookmark from "../assets/images/icon-menu-bookmark.svg";
 import { cn } from "../lib/utils";
 import { toast } from "react-toastify";
 import Modal from "./Modal";
+import DarkCalenderIcon from '../assets/images/calendar.svg'
+import DarkClockIcon from '../assets/images/clock.svg'
+import DarKEyeIcon from '../assets/images/eye.svg'
+import darkVerticalIcon from '../assets/images/dots-vertical.svg'
+
+import darkVisitIcon from '../assets/images/navigate.svg'
+import darkCopyIcon from "../assets/images/copy.svg"
+import darkPinIcon from '../assets/images/pin.svg'
+import darkUnPinIcon from '../assets/images/unpin.svg'
+import darkEditIcon from '../assets/images/edit.svg'
+import darkArchiveIcon from '../assets/images/archive.svg'
+import darkunArchiveIcon from '../assets/images/refresh.svg'
+import darkDeleteIcon from '../assets/images/delete.svg'
+
+
 
 function Card({ cardData, onEdit, onArchive, onDelete }) {
   const [open, setOpen] = useState(false);
@@ -39,7 +54,7 @@ function Card({ cardData, onEdit, onArchive, onDelete }) {
 
   const [itemSelected, setItemSelected] = useState("");
   const {
-    state: { isActiveSidebar, data },
+    state: { isActiveSidebar, data,selectedTheme },
     setState,
   } = useContext(ApplicationContext);
 
@@ -48,29 +63,34 @@ function Card({ cardData, onEdit, onArchive, onDelete }) {
       id: 1,
       name: "Visit",
       icon: IconVisit,
+      darkIcon:darkVisitIcon
     },
 
     {
       id: 2,
       name: "Copy URL",
       icon: CopyIcon,
+      darkIcon:darkCopyIcon
     },
 
     {
       id: 3,
       name: pinned ? "Unpin" : "pin",
       icon: pinned ? unpinIcon : pinIcon,
+      darkIcon:pinned?darkUnPinIcon:darkPinIcon
     },
 
     {
       id: 4,
       name: "Edit",
       icon: EditIcon,
+      darkIcon:darkEditIcon
     },
     {
       id: 5,
       name: "Archive",
       icon:  ArchiveIcon,
+      darkIcon:darkArchiveIcon
     },
   ];
 
@@ -79,22 +99,26 @@ function Card({ cardData, onEdit, onArchive, onDelete }) {
       id: 1,
       name: "Visit",
       icon: IconVisit,
+       darkIcon:darkVisitIcon
     },
 
     {
       id: 2,
       name: "Copy URL",
       icon: CopyIcon,
+       darkIcon:darkCopyIcon
     },
     {
       id: 3,
       name: "Unarchive",
       icon: UnArchiveIcon,
+      darkIcon:darkunArchiveIcon
     },
     {
       id: 4,
       name: "Delete Permanently",
       icon: deleteIcon,
+      darkIcon:darkDeleteIcon
     },
   ];
 
@@ -151,18 +175,18 @@ function Card({ cardData, onEdit, onArchive, onDelete }) {
 
   return (
     <>
-      <div className="p-4 flex flex-col rounded-[10px] shadow-xs bg-white gap-3">
+      <div className="p-4 flex flex-col rounded-[10px] shadow-xs bg-white gap-3 dark:bg-neutral-dark-500">
         {/* 1st section */}
-        <section className="flex items-center justify-between">
+        <section className="flex items-center justify-between ">
           <div className="flex gap-5 items-center">
-            <div className="flex rounded-lg border border-[#e8f0ef] w-10 h-10 ">
+            <div className="flex rounded-lg border border-[#e8f0ef] w-10 h-10 dark:border-neutral-dark-500">
               <img src={favicon} className="object-cover" />
             </div>
             <div className="flex flex-col gap-0">
-              <h3 className="font-bold text-lg text-neutral-900">{title}</h3>
+              <h3 className="font-bold text-lg text-neutral-900 dark:text-white">{title}</h3>
               <a
                 href={url}
-                className="text-xs text-neutral-800"
+                className="text-xs text-neutral-800 dark:text-neutral-dark-100"
                 target="_blank"
               >
                 {pathName}
@@ -170,9 +194,9 @@ function Card({ cardData, onEdit, onArchive, onDelete }) {
             </div>
           </div>
 
-          <div className="flex items-center justify-center rounded-lg border border-neutral-400 bg-white p-1 relative cursor-pointer">
+          <div className="flex items-center justify-center rounded-lg border border-neutral-400 bg-white p-1 relative cursor-pointer dark:border-neutral-dark-500 dark:bg-neutral-dark-800">
             <img
-              src={iconMenuBookmark}
+              src={selectedTheme==="dark" ?darkVerticalIcon:iconMenuBookmark}
               className="w-5 h-5"
               onClick={() => setOpen(!open)}
             />
@@ -188,13 +212,13 @@ function Card({ cardData, onEdit, onArchive, onDelete }) {
                       setOpen(false);
                     }}
                     className={cn(
-                      "flex cursor-pointer items-center gap-2 px-4 py-2 text-sm text-neutral-800 hover:bg-[#e8f0ef] rounded-lg",
-                      itemSelected === item.name && "bg-[#e8f0ef] rounded-lg"
+                      "flex cursor-pointer items-center gap-2 px-4 py-2 text-sm text-neutral-800 hover:bg-[#e8f0ef] rounded-lg dark:text-neutral-dark-100 dark:hover:bg-transparent dark:hover:ring-1 dark:hover:ring-neutral-dark-100" ,
+                      itemSelected === item.name && "bg-[#e8f0ef] rounded-lg dark:hover:ring-1 dark:hover:ring-neutral-dark-100 dark:bg-transparent "
                     )}
                   >
                     <div>
                       <img
-                        src={item.icon}
+                        src={selectedTheme==="dark"?item.darkIcon :item.icon}
                         alt={item.name}
                         className="w-4 h-4"
                       />
@@ -206,16 +230,16 @@ function Card({ cardData, onEdit, onArchive, onDelete }) {
             </Dropdown>
           </div>
         </section>
-        <div className="border-[0.5px] border-neutral-300"></div>
+        <div className="border-[0.5px] border-neutral-300 dark:border-neutral-dark-500"></div>
 
         {/* description */}
-        <div className="text-sm text-neutral-800">{description}</div>
+        <div className="text-sm text-neutral-800 dark:text-neutral-dark-100">{description}</div>
         {/* tags */}
 
         <div className="flex gap-4">
           {tags.map((tag) => (
             <div
-              className="py-0.5 px-4 rounded-sm bg-[#e8f0ef] text-xs text-neutral-800"
+              className="py-0.5 px-4 rounded-sm bg-[#e8f0ef] text-xs text-neutral-800 dark:bg-neutral-dark-600 dark:text-neutral-dark-100"
               key={tag}
             >
               {tag}
@@ -223,33 +247,33 @@ function Card({ cardData, onEdit, onArchive, onDelete }) {
           ))}
         </div>
 
-        <div className="border-[0.5px] border-neutral-300"></div>
+        <div className="border-[0.5px] border-neutral-300 dark:border-neutral-dark-500"></div>
 
         {/* footer */}
         <section className="flex justify-between items-center">
           <div className="flex gap-2 items-center">
             <div className="flex gap-2 items-center">
-              <img src={visitCountIcon} className="w-3 h-3 object-cover" />
-              <span className="text-xs  text-neutral-800">{visitCount}</span>
+              <img src={selectedTheme==="dark"?DarKEyeIcon:visitCountIcon} className="w-3 h-3 object-cover" />
+              <span className="text-xs  text-neutral-800 dark:text-neutral-dark-100">{visitCount}</span>
             </div>
 
             <div className="flex gap-2 items-center">
-              <img src={lastVistedIcon} className="w-3 h-3 object-cover" />
-              <span className="text-xs  text-neutral-800">
+              <img src={selectedTheme==="dark"?DarkClockIcon:lastVistedIcon} className="w-3 h-3 object-cover" />
+              <span className="text-xs  text-neutral-800 dark:text-neutral-dark-100">
                 {formatDate(lastVisited)}
               </span>
             </div>
 
             <div className="flex gap-2 items-center">
-              <img src={createdIcon} className="w-3 h-3 object-cover" />
-              <span className="text-xs  text-neutral-800">
+              <img src={selectedTheme==="dark"?DarkCalenderIcon:createdIcon} className="w-3 h-3 object-cover" />
+              <span className="text-xs  text-neutral-800 dark:text-neutral-dark-100">
                 {formatDate(createdAt)}
               </span>
             </div>
           </div>
 
           {isActiveSidebar === "archived" && isArchived ? (
-            <div className="py-0.5 px-4 rounded-sm bg-[#e8f0ef] text-xs text-neutral-800">
+            <div className="py-0.5 px-4 rounded-sm bg-[#e8f0ef] text-xs text-neutral-800 ">
               Archived
             </div>
           ) : (

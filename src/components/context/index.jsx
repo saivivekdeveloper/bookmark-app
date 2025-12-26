@@ -1,4 +1,4 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 import data from "../../data/data";
 const ApplicationContext = createContext(null);
 
@@ -8,7 +8,17 @@ function ApplicationState({ children }) {
     tagsChecked: {},
     isSearchInput: "",
     data,
+    selectedTheme: "dark",
   });
+
+  useEffect(() => {
+    const root = document.documentElement;
+    if (state.selectedTheme === "dark") {
+      root.classList.add("dark");
+    } else {
+      root.classList.remove("dark");
+    }
+  }, [state.selectedTheme]);
 
   function handleActiveSidebar(value) {
     setState((prev) => ({

@@ -17,12 +17,12 @@ function Tags({ tagName, tagCount }) {
           checked={tagsChecked[tagName] || false}
           className="w-4 h-4 cursor-pointer accent-teal-700 text-white rounded-lg transition-all duration-600"
         />
-        <label className="text-sm  font-medium  text-neutral-800">
+        <label className="text-sm  font-medium  text-neutral-800 dark:text-neutral-dark-100">
           {tagName}
         </label>
       </div>
 
-      <div className="py-0.5 px-2 bg-[#e8f0ef] rounded-full border border-neutral-0 text-xs font-medium text-neutral-800">
+      <div className="py-0.5 px-2 bg-[#e8f0ef] rounded-full border border-neutral-0 text-xs font-medium text-neutral-800 dark:border-neutral-dark-400 dark:bg-neutral-dark-600 dark:text-white">
         <span>{tagCount[tagName]}</span>
       </div>
     </div>

@@ -8,12 +8,17 @@ import { cn } from "../../lib/utils";
 // import data from "../../data/data";
 import Tags from "../../pages/Tags";
 import { ApplicationContext } from "../context";
+import darkLogo from '../../assets/images/logo-dark-theme.svg'
+import darkHighlightedHome from '../../assets/images/dark-highlighted-home.svg'
+import darkHome from "../../assets/images/dark-home.svg"
+import darkHighlightedArchive  from '../../assets/images/dark-highlighted-archive.svg'
+import darkArchive from '../../assets/images/dark-archive.svg'
 
 function Sidebar() {
   const {
     handleActiveSidebar,
     handleResetTags,
-    state: { isActiveSidebar, tagsChecked,data },
+    state: { isActiveSidebar, tagsChecked,data ,selectedTheme},
   } = useContext(ApplicationContext);
 
   const isTagsSelected = Object.values(tagsChecked).some((el) => el);
@@ -41,57 +46,57 @@ function Sidebar() {
   }
 
   return (
-    <aside className="h-screen w-78 p-5">
+    <aside className="h-screen w-78 p-5 dark:bg-neutral-dark-800 dark:border dark:border-r dark:border-[#004241]">
       {/* icon */}
       <div className="mb-5">
-        <img src={Logo} alt="bookmark logo" />
+        <img src={selectedTheme==="dark"?darkLogo:Logo} alt="bookmark logo" />
       </div>
 
       {/* link to go to different pages */}
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 ">
         <div
           className={cn(
             "flex gap-2 items-center cursor-pointer py-2 px-3 transition-all duration-500 ease-in-out",
-            isActiveSidebar === "home" && " bg-[#e8f0ef]  rounded-md"
+            isActiveSidebar === "home" && " bg-[#e8f0ef]  rounded-md dark:bg-neutral-dark-600 "
           )}
           onClick={() => handleActiveSidebar("home")}
         >
           {isActiveSidebar === "home" ? (
             <img
-              src={HomeFilledIcon}
+              src={selectedTheme==="dark"?darkHighlightedHome:HomeFilledIcon}
               alt="Home"
               className="w-5 h-5 object-contain"
             />
           ) : (
             <img
-              src={HomeWhiteIcon}
+              src={selectedTheme==="dark"?darkHome:HomeWhiteIcon}
               alt="Home"
               className="w-5 h-5 object-contain"
             />
           )}
-          <p className="text-base font-medium text-neutral-800 ">Home</p>
+          <p className="text-base font-medium text-neutral-800 dark:text-white">Home</p>
         </div>
         <div
           className={cn(
             "flex gap-2 items-center cursor-pointer py-2 px-3 transition-all duration-500 ease-in-out",
-            isActiveSidebar === "archived" && " bg-[#e8f0ef]  rounded-md"
+            isActiveSidebar === "archived" && " bg-[#e8f0ef]  rounded-md dark:bg-neutral-dark-600 "
           )}
           onClick={() => handleActiveSidebar("archived")}
         >
           {isActiveSidebar === "archived" ? (
             <img
-              src={ArchivedFilledIcon}
+              src={selectedTheme==="dark"?darkHighlightedArchive:ArchivedFilledIcon}
               alt="Home"
               className="w-5 h-5 object-contain"
             />
           ) : (
             <img
-              src={ArchivedWhiteIcon}
+              src={selectedTheme==="dark"?darkArchive:ArchivedWhiteIcon}
               alt="Home"
               className="w-5 h-5 object-contain"
             />
           )}
-          <p className="text-base font-medium text-neutral-800">Archived</p>
+          <p className="text-base font-medium text-neutral-800 dark:text-white">Archived</p>
         </div>
       </div>
 
@@ -99,7 +104,7 @@ function Sidebar() {
 
       <section className="p-4">
         <div className="flex items-center justify-between mb-2">
-          <h3 className="font-bold text-[#4D4D4D] text-xs ">TAGS</h3>
+          <h3 className="font-bold text-[#4D4D4D] text-xs dark:text-[#ccd1d1] ">TAGS</h3>
           {isTagsSelected && (
             <p
               className="text-xs text-neutral-800  border-b border-neutral-500"

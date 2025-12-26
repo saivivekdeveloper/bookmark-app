@@ -12,10 +12,12 @@ import { cn } from "../lib/utils";
 import Modal from "../components/Modal";
 import { toast } from "react-toastify";
 import BookmarkForm from "./Form";
+import darkSort from '../assets/images/dark-sort.svg'
+import DarkCheckIcon from '../assets/images/check-icon.svg'
 
 function Homepage() {
   const {
-    state: { isActiveSidebar, tagsChecked, isSearchInput, data },
+    state: { isActiveSidebar, tagsChecked, isSearchInput, data,selectedTheme },
     setState,
   } = useContext(ApplicationContext);
   const [open, setOpen] = useState(false);
@@ -175,16 +177,16 @@ function Homepage() {
     <div className="flex">
       <Sidebar />
 
-      <div className="bg-[#e8f0ef] w-full">
+      <div className="bg-[#e8f0ef] w-full dark:bg-neutral-dark-900">
         <Header enableAddBookmark={() => setAddBookmarkModalOpen(true)} />
         {/* Home */}
         <div className="p-8">
           <div className="flex justify-between items-center">
-            <h1 className="text-[22px] font-bold text-neutral-900">
+            <h1 className="text-[22px] font-bold text-neutral-900 dark:text-white">
               {isTagsSelected ? (
                 <div className="flex gap-2 items-center ">
-                  <p> Bookmarks Tagged:</p>
-                  <p className="text-teal-700 text-xl">
+                  <p > Bookmarks Tagged:</p>
+                  <p className="text-teal-700 text-xl dark:text-white">
                     {
                       selectedNames.map((el) => el)
                       .join(",")}
@@ -198,13 +200,13 @@ function Homepage() {
             </h1>
 
             <div
-              className="py-2.5 px-3 rounded-lg border border-neutral-400 bg-white flex items-center gap-2 cursor-pointer relative"
+              className="py-2.5 px-3 rounded-lg border border-neutral-400 bg-white flex items-center gap-2 cursor-pointer relative dark:border-neutral-dark-400  dark:bg-neutral-dark-800"
               onClick={() => setOpen(!open)}
             >
-              <img src={SortIcon} alt="sort-icon" />
+              <img src={selectedTheme==="dark"?darkSort:SortIcon} alt="sort-icon" />
               <p
                 className="text-sm
-               text-neutral-900"
+               text-neutral-900 dark:text-white"
               >
                 Sort by{" "}
               </p>
@@ -219,7 +221,7 @@ function Homepage() {
                         setOpen(false);
                       }}
                       className={cn(
-                        "flex cursor-pointer items-center justify-between px-4 py-2 text-sm text-neutral-800 hover:bg-[#e8f0ef]",
+                        "flex cursor-pointer items-center justify-between px-4 py-2 text-sm text-neutral-800 hover:bg-[#e8f0ef] dark:text-neutral-dark-100",
                         isSelectedTextDropdown === item &&
                           "bg-[#e8f0ef] rounded-lg"
                       )}
@@ -228,7 +230,7 @@ function Homepage() {
                       {isSelectedTextDropdown === item && (
                         <div>
                           <img
-                            src={CheckIcon}
+                            src={selectedTheme==="dark"?DarkCheckIcon:CheckIcon}
                             alt="checkicon"
                             className="w-4 h-4 object-cover"
                           />
